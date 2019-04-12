@@ -1,9 +1,63 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardGroup,
+  Col,
+  Container,
+  Form,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from 'reactstrap';
+import {connect} from 'react-redux';
+
+import {userActions} from '../../../_actions';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    
+    // reset login status
+    this.props.dispatch(userActions.logout());
+    
+    this.state = {
+      username: '',
+      password: '',
+      submitted: false
+    };
+  }
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.loggedIn && !!this.props.loggedIn) {
+      this.props.history.push('/dashboard');
+    }
+  }
+  
+  handleChange = (e) => {
+    const {name, value} = e.target;
+    this.setState({[name]: value});
+  }
+  
+  handleSubmit = (e) => {
+    e.preventDefault();
+    
+    this.setState({submitted: true});
+    const {username, password} = this.state;
+    const {dispatch} = this.props;
+    if (username && password) {
+      dispatch(userActions.login(username, password));
+    }
+  }
+  
   render() {
+    const {loggingIn} = this.props;
+    const {username, password, submitted} = this.state;
+    
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -12,7 +66,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
+                    <Form name="form" onSubmit={this.handleSubmit}>
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -21,7 +75,8 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" name="username" placeholder="Username" autoComplete="username"
+                               onChange={this.handleChange} value={username}/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -29,7 +84,8 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password"
+                               value={password} onChange={this.handleChange}/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
@@ -42,7 +98,7 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+                <Card className="text-white bg-primary py-5 d-md-down-none" style={{width: '44%'}}>
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
@@ -63,4 +119,13 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  const {loggingIn, loggedIn, user} = state.authentication;
+  return {
+    loggingIn,
+    loggedIn,
+    user
+  };
+}
+
+export default connect(mapStateToProps)(Login);
