@@ -1,4 +1,5 @@
 import React from 'react';
+import AddUser from "./views/Users/AddUser";
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -78,6 +79,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
 ];
 
