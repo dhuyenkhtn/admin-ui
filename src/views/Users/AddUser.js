@@ -16,7 +16,7 @@ import {
 } from 'reactstrap';
 
 import {connect} from "react-redux";
-import {userActions} from "../../_actions";
+import { alertActions, userActions } from '../../_actions';
 
 class AddUser extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class AddUser extends Component {
       role: '',
       status: '',
     };
+    this.props.dispatch(alertActions.clear());
   }
   
   componentDidUpdate(prevProps, prevState, snapshot) {
