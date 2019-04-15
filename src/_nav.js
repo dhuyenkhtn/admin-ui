@@ -12,22 +12,27 @@ export default {
     {
       name: 'Users',
       url: '/users',
-      icon: 'icon-star',
+      icon: 'icon-user',
     },
     {
       name: 'Resellers',
       url: '/resellers',
-      icon: 'icon-calculator',
+      icon: 'icon-briefcase',
     },
     {
       name: 'Tokens',
       url: '/tokens',
-      icon: 'icon-puzzle',
+      icon: 'icon-layers',
+    },
+    {
+      name: 'Customers',
+      url: '/customers',
+      icon: 'icon-people',
     },
     {
       name: 'Domains',
       url: '/domains',
-      icon: 'icon-drop',
+      icon: 'icon-screen-desktop',
     },
   ],
 };

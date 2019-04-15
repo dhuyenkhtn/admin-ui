@@ -7,6 +7,9 @@ import EditToken from './views/Tokens/EditToken';
 import Domains from './views/Domains/Domains';
 import AddDomain from './views/Domains/AddDomain';
 import EditDomain from './views/Domains/EditDomain';
+import Customers from './views/Customers/Customers';
+import AddCustomer from './views/Customers/AddCustomer';
+import EditCustomer from './views/Customers/EditCustomer';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -93,7 +96,10 @@ const routes = [
   { path: '/tokens/:id', exact: true, name: 'Edit Token', component: EditToken },
   { path: '/domains', exact: true, name: 'Domains Management', component: Domains },
   { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
-  { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain }
+  { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain },
+  { path: '/customers', exact: true, name: 'Domains Management', component: Customers },
+  { path: '/customers/add', exact: true, name: 'Add new customer', component: AddCustomer },
+  { path: '/customers/:id', exact: true, name: 'Edit customer', component: EditCustomer }
 ];
 
 export default routes;

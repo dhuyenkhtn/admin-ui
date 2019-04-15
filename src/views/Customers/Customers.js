@@ -12,13 +12,13 @@ function UserRow(props) {
   const userLink = `/users/${user._id}`;
 
   const getBadge = status => {
-    return status === 'active'
+    return status === 'Active'
       ? 'success'
-      : status === 'inactive'
+      : status === 'Inactive'
       ? 'secondary'
-      : status === 'pending'
+      : status === 'Pending'
       ? 'warning'
-      : status === 'banned'
+      : status === 'Banned'
       ? 'danger'
       : 'primary';
   };
@@ -43,7 +43,7 @@ function UserRow(props) {
   );
 }
 
-class Users extends Component {
+class Customers extends Component {
   constructor(props) {
     super(props);
     this.props.dispatch(alertActions.clear());
@@ -112,4 +112,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps)(Customers);
