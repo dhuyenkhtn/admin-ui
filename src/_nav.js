@@ -24,5 +24,10 @@ export default {
       url: '/tokens',
       icon: 'icon-puzzle',
     },
+    {
+      name: 'Domains',
+      url: '/domains',
+      icon: 'icon-drop',
+    },
   ],
 };

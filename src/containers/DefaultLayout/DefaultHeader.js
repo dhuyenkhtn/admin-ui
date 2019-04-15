@@ -44,9 +44,9 @@ class DefaultHeader extends Component {
             </Link>
           </NavItem>
           {/*<NavItem className="px-3">*/}
-            {/*<NavLink to="#" className="nav-link">*/}
-              {/*Settings*/}
-            {/*</NavLink>*/}
+          {/*<NavLink to="#" className="nav-link">*/}
+          {/*Settings*/}
+          {/*</NavLink>*/}
           {/*</NavItem>*/}
         </Nav>
         <Nav className="ml-auto" navbar>

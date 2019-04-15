@@ -1,6 +1,12 @@
 import React from 'react';
-import AddUser from "./views/Users/AddUser";
-import EditUser from "./views/Users/EditUser";
+import AddUser from './views/Users/AddUser';
+import EditUser from './views/Users/EditUser';
+import Tokens from './views/Tokens/Tokens';
+import AddToken from './views/Tokens/AddToken';
+import EditToken from './views/Tokens/EditToken';
+import Domains from './views/Domains/Domains';
+import AddDomain from './views/Domains/AddDomain';
+import EditDomain from './views/Domains/EditDomain';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -79,9 +85,15 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
   { path: '/users/:id', exact: true, name: 'Edit User', component: EditUser },
+  { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
+  { path: '/tokens/add', exact: true, name: 'Add Token', component: AddToken },
+  { path: '/tokens/:id', exact: true, name: 'Edit Token', component: EditToken },
+  { path: '/domains', exact: true, name: 'Domains Management', component: Domains },
+  { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
+  { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain }
 ];
 
 export default routes;
