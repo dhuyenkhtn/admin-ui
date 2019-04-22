@@ -9,7 +9,7 @@ class Customer extends Component {
     const userData = this.props.items || [];
     const user = userData.find( user => user._id.toString() === this.props.match.params.id) || {};
 
-    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
+    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"/> Not found</span>)]]
 
     return (
       <div className="animated fadeIn">
@@ -17,7 +17,7 @@ class Customer extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"></i>User: {user.username}</strong>
+                <strong><i className="icon-info pr-1"/>Customer detail: {user.username}</strong>
               </CardHeader>
               <CardBody>
                   <Table responsive striped hover>
@@ -44,7 +44,7 @@ class Customer extends Component {
 }
 
 const mapStateToProps = state => {
-  const {items} = state.users;
+  const {items} = state.customers;
   return {
     items
   }

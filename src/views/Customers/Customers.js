@@ -4,41 +4,37 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Alert, Badge, Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-import { userActions } from '../../_actions/user.actions';
-import { alertActions } from '../../_actions';
+import { alertActions, customerActions } from '../../_actions';
 
 function UserRow(props) {
   const { user } = props;
-  const userLink = `/users/${user._id}`;
+  const userLink = `/customers/${user._id}`;
 
   const getBadge = status => {
-    return status === 'Active'
+    return status === 'active'
       ? 'success'
-      : status === 'Inactive'
+      : status === 'inactive'
       ? 'secondary'
-      : status === 'Pending'
+      : status === 'pending'
       ? 'warning'
-      : status === 'Banned'
+      : status === 'banned'
       ? 'danger'
       : 'primary';
   };
-
+  const status = user.accountEnabled ? 'active' : 'inactive';
   return (
     <tr key={user._id.toString()}>
       <td>
         <Link to={userLink}>{user.username}</Link>
       </td>
+      <td>{user.domain}</td>
+      <td>{user.userPrincipalName}</td>
+      <td>{user.displayName}</td>
       <td>
-        <Link to={userLink}>{user.fullname}</Link>
-      </td>
-      <td>{user.email}</td>
-      <td>{user.role}</td>
-      <td>
-        <Link to={userLink}>
-          <Badge color={getBadge(user.status)}>{user.status}</Badge>
-        </Link>
+        <Badge color={getBadge(status)}>{status}</Badge>
       </td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
+      <td>{user.createdBy}</td>
     </tr>
   );
 }
@@ -50,7 +46,7 @@ class Customers extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(userActions.getAll());
+    this.props.dispatch(customerActions.getAll());
   }
 
   render() {
@@ -62,14 +58,14 @@ class Customers extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify" /> Users
+                <i className="fa fa-align-justify" /> Customers
                 <div className="card-header-actions">
                   <Button
-                    onClick={() => this.props.history.push('/users/add')}
+                    onClick={() => this.props.history.push('/customers/add')}
                     block
                     color="primary"
                   >
-                    <i className="fa fa-plus-square-o" /> Add new user
+                    <i className="fa fa-plus-square-o" /> Add new customer
                   </Button>
                 </div>
               </CardHeader>
@@ -82,11 +78,12 @@ class Customers extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Username</th>
+                      <th scope="col">Domain</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Role</th>
+                      <th scope="col">Full name</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
+                      <th scope="col">Created By</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,7 +100,7 @@ class Customers extends Component {
 }
 
 const mapStateToProps = state => {
-  const { items } = state.users;
+  const { items } = state.customers;
   const { color, message } = state.alert;
   return {
     items,

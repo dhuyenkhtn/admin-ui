@@ -14,16 +14,16 @@ export default {
       url: '/users',
       icon: 'icon-user',
     },
-    {
-      name: 'Resellers',
-      url: '/resellers',
-      icon: 'icon-briefcase',
-    },
-    {
-      name: 'Tokens',
-      url: '/tokens',
-      icon: 'icon-layers',
-    },
+    // {
+    //   name: 'Resellers',
+    //   url: '/resellers',
+    //   icon: 'icon-briefcase',
+    // },
+    // {
+    //   name: 'Tokens',
+    //   url: '/tokens',
+    //   icon: 'icon-layers',
+    // },
     {
       name: 'Customers',
       url: '/customers',

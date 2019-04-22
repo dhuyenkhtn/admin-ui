@@ -10,6 +10,7 @@ import EditDomain from './views/Domains/EditDomain';
 import Customers from './views/Customers/Customers';
 import AddCustomer from './views/Customers/AddCustomer';
 import EditCustomer from './views/Customers/EditCustomer';
+import Customer from './views/Customers/Customer';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -97,9 +98,9 @@ const routes = [
   { path: '/domains', exact: true, name: 'Domains Management', component: Domains },
   { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
   { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain },
-  { path: '/customers', exact: true, name: 'Domains Management', component: Customers },
+  { path: '/customers', exact: true, name: 'Customers Management', component: Customers },
   { path: '/customers/add', exact: true, name: 'Add new customer', component: AddCustomer },
-  { path: '/customers/:id', exact: true, name: 'Edit customer', component: EditCustomer }
+  { path: '/customers/:id', exact: true, name: 'Edit customer', component: Customer }
 ];
 
 export default routes;
