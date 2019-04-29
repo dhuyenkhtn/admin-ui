@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Alert, Badge, Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
 import { userActions } from '../../_actions/user.actions';
-import { alertActions } from '../../_actions';
+import { alertActions, domainsActions } from '../../_actions';
 
 function UserRow(props) {
   const { user } = props;
@@ -26,7 +26,7 @@ function UserRow(props) {
   return (
     <tr key={user._id.toString()}>
       <td>
-        <Link to={userLink}>{user.username}</Link>
+        <Link to={`/users/detail/${user._id}`}>{user.username}</Link>
       </td>
       <td>
         <Link to={userLink}>{user.fullname}</Link>
@@ -38,6 +38,7 @@ function UserRow(props) {
           <Badge color={getBadge(user.status)}>{user.status}</Badge>
         </Link>
       </td>
+      <td>{user.canUseDomains.join(' | ')}</td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
     </tr>
   );
@@ -51,6 +52,7 @@ class Users extends Component {
 
   componentDidMount() {
     this.props.dispatch(userActions.getAll());
+    this.props.dispatch(domainsActions.getAll());
   }
 
   render() {
@@ -86,6 +88,7 @@ class Users extends Component {
                       <th scope="col">Name</th>
                       <th scope="col">Role</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Domains</th>
                       <th scope="col">Created At</th>
                     </tr>
                   </thead>

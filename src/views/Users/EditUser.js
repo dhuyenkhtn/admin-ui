@@ -31,7 +31,8 @@ class EditUser extends Component {
       fullname: '',
       password: '',
       role: '',
-      status: ''
+      status: '',
+      canUseDomains: []
     };
     dispatch(alertActions.clear());
   }
@@ -39,9 +40,9 @@ class EditUser extends Component {
   componentDidMount() {
     const users = this.props.users || [];
     const user = users.find(e => e._id.toString() === this.props.match.params.id) || {};
-    const { username, email, fullname, password, role, status } = user;
+    const { username, email, fullname, password, role, status, canUseDomains } = user;
 
-    this.setState({ username, email, fullname, password, role, status });
+    this.setState({ username, email, fullname, password, role, status, canUseDomains });
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -66,6 +67,17 @@ class EditUser extends Component {
     } else {
       this.setState({ submitted: false });
     }
+  };
+  
+  handleSelectMultipleChange = e => {
+    const { options } = e.target;
+    let value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({ canUseDomains: value });
   };
 
   handleValidate = () => {
@@ -250,6 +262,30 @@ class EditUser extends Component {
                       </Input>
                     </InputGroup>
                   </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label>Domains</Label>
+                    </Col>
+                    <Col md="9">
+                      <Input
+                        type="select"
+                        name="multiple-select"
+                        id="multiple-select"
+                        multiple
+                        onChange={this.handleSelectMultipleChange}
+                      >
+                        {this.props.domains &&
+                        this.props.domains.map(domain => (
+                          <option
+                            selected={this.state.canUseDomains.includes(domain.domain)}
+                            value={domain.domain}
+                          >
+                            {domain.domain}
+                          </option>
+                        ))}
+                      </Input>
+                    </Col>
+                  </FormGroup>
                   <FormGroup className="form-actions">
                     <Button
                       disabled={!!this.state.submitted}
@@ -277,7 +313,8 @@ const mapStateToProps = state => {
   return {
     color,
     message,
-    users: items
+    users: items,
+    domains: state.domains.items
   };
 };
 

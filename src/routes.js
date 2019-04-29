@@ -89,8 +89,11 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
+  
+  
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
+  { path: '/users/detail/:id', exact: true, name: 'User detail', component: User },
   { path: '/users/:id', exact: true, name: 'Edit User', component: EditUser },
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
   { path: '/tokens/add', exact: true, name: 'Add Token', component: AddToken },

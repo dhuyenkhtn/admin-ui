@@ -22,6 +22,7 @@ function login(username, password) {
         dispatch(success(user));
       },
       error => {
+        console.log(error);
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
@@ -50,7 +51,7 @@ function register(user) {
 
     userService.register(user).then(
       user => {
-        dispatch(success());
+        dispatch(success(user));
         history.push('/login');
         dispatch(alertActions.success('Registration successful'));
       },
