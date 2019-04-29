@@ -2,8 +2,6 @@ import React from 'react';
 import AddUser from './views/Users/AddUser';
 import EditUser from './views/Users/EditUser';
 import Tokens from './views/Tokens/Tokens';
-import AddToken from './views/Tokens/AddToken';
-import EditToken from './views/Tokens/EditToken';
 import Domains from './views/Domains/Domains';
 import AddDomain from './views/Domains/AddDomain';
 import EditDomain from './views/Domains/EditDomain';
@@ -95,12 +93,13 @@ const routes = [
   { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
   { path: '/users/detail/:id', exact: true, name: 'User detail', component: User },
   { path: '/users/:id', exact: true, name: 'Edit User', component: EditUser },
+  
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
-  { path: '/tokens/add', exact: true, name: 'Add Token', component: AddToken },
-  { path: '/tokens/:id', exact: true, name: 'Edit Token', component: EditToken },
+  
   { path: '/domains', exact: true, name: 'Domains Management', component: Domains },
   { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
   { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain },
+  
   { path: '/customers', exact: true, name: 'Customers Management', component: Customers },
   { path: '/customers/add', exact: true, name: 'Add new customer', component: AddCustomer },
   { path: '/customers/:id', exact: true, name: 'Edit customer', component: Customer }
