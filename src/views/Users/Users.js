@@ -38,6 +38,9 @@ function UserRow(props) {
           <Badge color={getBadge(user.status)}>{user.status}</Badge>
         </Link>
       </td>
+      <td>
+        <Link to={`/users/assign-token/${user._id}`} >Assign token</Link>
+      </td>
       <td>{user.canUseDomains.join(' | ')}</td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
     </tr>
@@ -84,10 +87,11 @@ class Users extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Username</th>
-                      <th scope="col">Email</th>
                       <th scope="col">Name</th>
+                      <th scope="col">Email</th>
                       <th scope="col">Role</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Assign token</th>
                       <th scope="col">Domains</th>
                       <th scope="col">Created At</th>
                     </tr>

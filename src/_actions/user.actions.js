@@ -10,7 +10,8 @@ export const userActions = {
   register,
   getAll,
   delete: _delete,
-  update
+  update,
+  assignToken
 };
 
 function login(username, password) {
@@ -167,5 +168,33 @@ function _delete(id) {
   }
   function failure(id, error) {
     return { type: userConstants.DELETE_FAILURE, id, error };
+  }
+}
+
+function assignToken(userId, quantity) {
+  return dispatch => {
+    dispatch(request(quantity));
+
+    userService.assignToken(userId, quantity).then(
+      () => {
+        dispatch(success());
+        history.push(`/users/${userId}`);
+        dispatch(alertActions.success(`Assigned ${quantity} tokens`));
+      },
+      error => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+
+  function request(quantity) {
+    return { type: userConstants.ASSIGN_TOKEN_REQUEST, quantity };
+  }
+  function success() {
+    return { type: userConstants.ASSIGN_TOKEN_SUCCESS };
+  }
+  function failure(error) {
+    return { type: userConstants.ASSIGN_TOKEN_FAILURE, error };
   }
 }

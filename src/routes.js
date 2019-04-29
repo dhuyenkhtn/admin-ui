@@ -9,6 +9,7 @@ import Customers from './views/Customers/Customers';
 import AddCustomer from './views/Customers/AddCustomer';
 import EditCustomer from './views/Customers/EditCustomer';
 import Customer from './views/Customers/Customer';
+import AssignToken from './views/Users/AssignToken';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -93,6 +94,7 @@ const routes = [
   { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
   { path: '/users/detail/:id', exact: true, name: 'User detail', component: User },
   { path: '/users/:id', exact: true, name: 'Edit User', component: EditUser },
+  { path: '/users/assign-token/:id', exact: true, name: 'Assign Token', component: AssignToken },
   
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
   
