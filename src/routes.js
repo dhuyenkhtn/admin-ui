@@ -10,6 +10,9 @@ import AddCustomer from './views/Customers/AddCustomer';
 import EditCustomer from './views/Customers/EditCustomer';
 import Customer from './views/Customers/Customer';
 import AssignToken from './views/Users/AssignToken';
+import Configurations from './views/Configurations/Configurations';
+import AddConfiguration from './views/Configurations/AddConfiguration';
+import EditConfiguration from './views/Configurations/EditConfiguration';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -90,10 +93,10 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   
   
-  { path: '/users', exact: true, name: 'Users', component: Users },
-  { path: '/users/add', exact: true, name: 'Add User', component: AddUser },
-  { path: '/users/detail/:id', exact: true, name: 'User detail', component: User },
-  { path: '/users/:id', exact: true, name: 'Edit User', component: EditUser },
+  { path: '/users', exact: true, name: 'Resellers', component: Users },
+  { path: '/users/add', exact: true, name: 'Add Reseller', component: AddUser },
+  { path: '/users/detail/:id', exact: true, name: 'Detail', component: User },
+  { path: '/users/:id', exact: true, name: 'Edit Reseller', component: EditUser },
   { path: '/users/assign-token/:id', exact: true, name: 'Assign Token', component: AssignToken },
   
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
@@ -102,9 +105,13 @@ const routes = [
   { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
   { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain },
   
-  { path: '/customers', exact: true, name: 'Customers Management', component: Customers },
-  { path: '/customers/add', exact: true, name: 'Add new customer', component: AddCustomer },
-  { path: '/customers/:id', exact: true, name: 'Edit customer', component: Customer }
+  { path: '/customers', exact: true, name: 'User Management', component: Customers },
+  { path: '/customers/add', exact: true, name: 'Add new user', component: AddCustomer },
+  { path: '/customers/:id', exact: true, name: 'Edit user', component: Customer },
+  
+  { path: '/configurations', exact: true, name: 'Configurations', component: Configurations },
+  { path: '/configurations/create', exact: true, name: 'Add config', component: AddConfiguration },
+  { path: '/configurations/:id', exact: true, name: 'Edit config', component: EditConfiguration }
 ];
 
 export default routes;

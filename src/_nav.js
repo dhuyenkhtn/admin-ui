@@ -10,14 +10,9 @@ export default {
       },
     },
     {
-      name: 'Users',
+      name: 'Resellers',
       url: '/users',
       icon: 'icon-user',
-    },
-    {
-      name: 'Resellers',
-      url: '/resellers',
-      icon: 'icon-briefcase',
     },
     {
       name: 'Tokens',
@@ -25,7 +20,7 @@ export default {
       icon: 'icon-layers',
     },
     {
-      name: 'Customers',
+      name: 'Users',
       url: '/customers',
       icon: 'icon-people',
     },
@@ -33,6 +28,11 @@ export default {
       name: 'Domains',
       url: '/domains',
       icon: 'icon-screen-desktop',
+    },
+    {
+      name: 'Configurations',
+      url: '/configurations',
+      icon: 'icon-settings',
     },
   ],
 };

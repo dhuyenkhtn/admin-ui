@@ -7,6 +7,7 @@ import { customers } from './customers.reducer';
 import { alert } from './alert.reducer';
 import { domains } from './domains.reducer';
 import { tokens } from './tokens.reducer';
+import { configurations } from './configurations.reducer';
 
 const rootReducer = combineReducers({
   authentication,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   alert,
   domains,
   customers,
-  tokens
+  tokens,
+  configurations
 });
 
 export default rootReducer;
