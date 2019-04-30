@@ -38,11 +38,11 @@ function UserRow(props) {
           <Badge color={getBadge(user.status)}>{user.status}</Badge>
         </Link>
       </td>
+      <td>{user.canUseDomains.join(' | ')}</td>
+      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
         <Link to={`/users/assign-token/${user._id}`} >Assign token</Link>
       </td>
-      <td>{user.canUseDomains.join(' | ')}</td>
-      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
     </tr>
   );
 }
@@ -67,14 +67,14 @@ class Users extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify" /> Users
+                <i className="fa fa-align-justify" /> Resellers
                 <div className="card-header-actions">
                   <Button
                     onClick={() => this.props.history.push('/users/add')}
                     block
                     color="primary"
                   >
-                    <i className="fa fa-plus-square-o" /> Add new user
+                    <i className="fa fa-plus-square-o" /> Add new
                   </Button>
                 </div>
               </CardHeader>
@@ -91,9 +91,9 @@ class Users extends Component {
                       <th scope="col">Email</th>
                       <th scope="col">Role</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Assign token</th>
                       <th scope="col">Domains</th>
                       <th scope="col">Created At</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>

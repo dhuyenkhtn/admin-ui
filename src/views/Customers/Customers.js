@@ -58,14 +58,14 @@ class Customers extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify" /> Customers
+                <i className="fa fa-align-justify" /> Users
                 <div className="card-header-actions">
                   <Button
                     onClick={() => this.props.history.push('/customers/add')}
                     block
                     color="primary"
                   >
-                    <i className="fa fa-plus-square-o" /> Add new customer
+                    <i className="fa fa-plus-square-o" /> Add new user
                   </Button>
                 </div>
               </CardHeader>

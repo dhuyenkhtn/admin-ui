@@ -25,7 +25,8 @@ class AddDomain extends Component {
     super(props);
     this.state = {
       domain: '',
-      status: 'active'
+      tenant: '',
+      status: 'active',
     };
     this.props.dispatch(alertActions.clear());
   }
@@ -55,10 +56,6 @@ class AddDomain extends Component {
 
   handleValidate = () => {
     const { domain, status } = this.state;
-    // if (domain.trim().length < 5) {
-    //   this.setState({error: 'Username must at least 5 characters length'});
-    //   return false;
-    // }
 
     if (status === '') {
       this.setState({ error: 'Please select status' });
@@ -103,6 +100,23 @@ class AddDomain extends Component {
                       />
                     </InputGroup>
                   </FormGroup>
+                  <FormGroup>
+                    <InputGroup>
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="fa fa-user" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="text"
+                        id="tenant"
+                        name="tenant"
+                        placeholder="Tenant..."
+                        value={this.state.tenant}
+                        onChange={this.handleOnChange}
+                      />
+                    </InputGroup>
+                  </FormGroup>
 
                   <FormGroup>
                     <InputGroup>
@@ -135,7 +149,7 @@ class AddDomain extends Component {
                       size="sm"
                       color="success"
                     >
-                      Save
+                      Create
                     </Button>
                   </FormGroup>
                 </Form>

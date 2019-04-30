@@ -27,7 +27,9 @@ function DomainRow(props) {
     <tr key={key}>
       <td>
         {domain.domain}
-        {/*<Link to={domainLink}>{domain.domain}</Link>*/}
+      </td>
+      <td>
+        {domain.tenant}
       </td>
       <td>{domain.createdBy}</td>
       <td>
@@ -71,6 +73,7 @@ class Domains extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Domain</th>
+                      <th scope="col">Tenant</th>
                       <th scope="col">Created By</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created at</th>

@@ -17,7 +17,7 @@ class Customer extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"/>Customer detail: {user.username}</strong>
+                <strong><i className="icon-info pr-1"/>Detail: {user.username}</strong>
               </CardHeader>
               <CardBody>
                   <Table responsive striped hover>

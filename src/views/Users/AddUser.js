@@ -115,7 +115,7 @@ class AddUser extends Component {
             <Card>
               <CardHeader>
                 <strong>
-                  <i className="icon-info pr-1" />Add new user
+                  <i className="icon-info pr-1" /> Add new
                 </strong>
               </CardHeader>
               <CardBody>

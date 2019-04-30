@@ -98,7 +98,7 @@ class AddCustomer extends Component {
               <CardHeader>
                 <strong>
                   <i className="icon-info pr-1" />
-                  Add new customer
+                  Add new
                 </strong>
               </CardHeader>
               <CardBody>
