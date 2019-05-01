@@ -141,12 +141,11 @@ class AddCustomer extends Component {
                         <option selected={this.state.domain === ''} value="">
                           -- Please select domain --
                         </option>
-                        <option
-                          selected={this.state.domain === 'partnero365.onmicrosoft.com'}
-                          value="partnero365.onmicrosoft.com"
-                        >
-                          partnero365.onmicrosoft.com
-                        </option>
+                        {this.props.canUseDomains.map(item => (
+                          <option selected={this.state.domain === item} value={item}>
+                            {item}
+                          </option>
+                        ))}
                       </Input>
                     </InputGroup>
                   </FormGroup>
@@ -226,9 +225,11 @@ class AddCustomer extends Component {
 
 const mapStateToProps = state => {
   const { color, message } = state.alert;
+  const { user } = state.authentication;
   return {
     color,
-    message
+    message,
+    canUseDomains: user ? user.canUseDomains : []
   };
 };
 

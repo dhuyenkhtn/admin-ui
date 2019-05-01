@@ -90,6 +90,9 @@ class Customers extends Component {
                     {userList && userList.map((user, index) => <UserRow key={index} user={user} />)}
                   </tbody>
                 </Table>
+                {(!userList || userList.length === 0) && (
+                  <Alert color={'warning'}>You have no users!</Alert>
+                )}
               </CardBody>
             </Card>
           </Col>

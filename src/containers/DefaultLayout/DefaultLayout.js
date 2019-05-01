@@ -1,4 +1,5 @@
 import React, { Component, Suspense } from 'react';
+import {connect} from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
@@ -16,8 +17,11 @@ import {
 } from '@coreui/react';
 // sidebar nav config
 import navigation from '../../_nav';
+import resellerNavigation from '../../_nav.reseller';
+
 // routes config
 import routes from '../../routes';
+import { authentication } from '../../_reducers/authentication.reducer';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -33,6 +37,23 @@ class DefaultLayout extends Component {
   }
 
   render() {
+    const {user} = this.props;
+    let nav = {items: []};
+    if (user) {
+      switch (user.role) {
+        case 'admin': {
+          nav = navigation;
+          break;
+        }
+        case 'reseller': {
+          nav = resellerNavigation;
+          break;
+        }
+        default:
+          nav = {items: []};
+      }
+    }
+    
     return (
       <div className="app">
         <AppHeader fixed>
@@ -45,7 +66,7 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} />
+            <AppSidebarNav navConfig={nav} {...this.props} />
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
@@ -88,6 +109,10 @@ class DefaultLayout extends Component {
   }
 }
 
-// const mapStateToProps
+const mapStateToProps = state => {
+  return {
+    user: state.authentication.user
+  }
+};
 
-export default DefaultLayout;
+export default connect(mapStateToProps, {})(DefaultLayout);

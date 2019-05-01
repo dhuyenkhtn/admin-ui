@@ -38,11 +38,11 @@ class DefaultHeader extends Component {
               Dashboard
             </NavLink>
           </NavItem>
-          <NavItem className="px-3">
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-          </NavItem>
+          {/*<NavItem className="px-3">*/}
+            {/*<Link to="/users" className="nav-link">*/}
+              {/*Users*/}
+            {/*</Link>*/}
+          {/*</NavItem>*/}
           {/*<NavItem className="px-3">*/}
           {/*<NavLink to="#" className="nav-link">*/}
           {/*Settings*/}
