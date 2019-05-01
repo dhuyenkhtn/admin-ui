@@ -96,7 +96,7 @@ const routes = [
   { path: '/users', exact: true, name: 'Resellers', component: Users },
   { path: '/users/add', exact: true, name: 'Add Reseller', component: AddUser },
   { path: '/users/detail/:id', exact: true, name: 'Detail', component: User },
-  { path: '/users/:id', exact: true, name: 'Edit Reseller', component: EditUser },
+  { path: '/users/edit/:id', exact: true, name: 'Edit Reseller', component: EditUser },
   { path: '/users/assign-token/:id', exact: true, name: 'Assign Token', component: AssignToken },
   
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },

@@ -9,13 +9,13 @@ import { alertActions, domainsActions } from '../../_actions';
 
 function UserRow(props) {
   const { user } = props;
-  const userLink = `/users/${user._id}`;
+  const userLink = `/users/edit/${user._id}`;
 
   const getBadge = status => {
     return status === 'active'
       ? 'success'
       : status === 'inactive'
-      ? 'secondary'
+      ? 'danger'
       : status === 'pending'
       ? 'warning'
       : status === 'banned'
@@ -23,25 +23,37 @@ function UserRow(props) {
       : 'primary';
   };
 
+  const getRoleBadge = status => {
+    return status === 'admin'
+      ? 'danger'
+      : status === 'reseller'
+      ? 'warning'
+      : status === 'user'
+      ? 'primary'
+      : 'primary';
+  };
+
   return (
     <tr key={user._id.toString()}>
       <td>
-        <Link to={`/users/detail/${user._id}`}>{user.username}</Link>
+        {/*<Link to={`/users/detail/${user._id}`}>{user.username}</Link>*/}
+        <Link to={userLink}>{user.username}</Link>
       </td>
+      <td>{user.fullname}</td>
       <td>
-        <Link to={userLink}>{user.fullname}</Link>
+        <Badge color={getRoleBadge(user.role)}>{user.role.toUpperCase()}</Badge>
       </td>
-      <td>{user.email}</td>
-      <td>{user.role}</td>
+      <td>{user.tokenInBucket}</td>
+      <td>{user.tokenUsed}</td>
+      <td>{user.canUseDomains.join(' | ')}</td>
+      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
         <Link to={userLink}>
           <Badge color={getBadge(user.status)}>{user.status}</Badge>
         </Link>
       </td>
-      <td>{user.canUseDomains.join(' | ')}</td>
-      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
-        <Link to={`/users/assign-token/${user._id}`} >Assign token</Link>
+        <Link to={`/users/assign-token/${user._id}`}>Assign token</Link>
       </td>
     </tr>
   );
@@ -88,11 +100,12 @@ class Users extends Component {
                     <tr>
                       <th scope="col">Username</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Email</th>
                       <th scope="col">Role</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Tokens</th>
+                      <th scope="col">Tokens Used</th>
                       <th scope="col">Domains</th>
                       <th scope="col">Created At</th>
+                      <th scope="col">Status</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>

@@ -15,14 +15,14 @@ export default {
       icon: 'icon-user',
     },
     {
-      name: 'Tokens',
-      url: '/tokens',
-      icon: 'icon-layers',
-    },
-    {
       name: 'Users',
       url: '/customers',
       icon: 'icon-people',
+    },
+    {
+      name: 'Tokens',
+      url: '/tokens',
+      icon: 'icon-layers',
     },
     {
       name: 'Domains',
