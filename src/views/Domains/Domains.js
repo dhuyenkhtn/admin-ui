@@ -26,11 +26,9 @@ function DomainRow(props) {
   return (
     <tr key={key}>
       <td>
-        {domain.domain}
+        <Link to={domainLink}>{domain.domain}</Link>
       </td>
-      <td>
-        {domain.tenant}
-      </td>
+      <td>{domain.tenant}</td>
       <td>{domain.createdBy}</td>
       <td>
         <Badge color={getBadge(domain.status)}>{domain.status}</Badge>
@@ -83,7 +81,7 @@ class Domains extends Component {
                     {items && items.map(item => <DomainRow key={item._id} domain={item} />)}
                   </tbody>
                 </Table>
-                {(!items || items.length) === 0 && <Alert color='warning'>Empty domains!</Alert>}
+                {(!items || items.length) === 0 && <Alert color="warning">Empty domains!</Alert>}
               </CardBody>
             </Card>
           </Col>
