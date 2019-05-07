@@ -54,7 +54,7 @@ function register(user) {
       user => {
         dispatch(success(user));
         history.push('/login');
-        dispatch(alertActions.success('Registration successful'));
+          dispatch(alertActions.success('Registration successful'));
       },
       error => {
         dispatch(failure(error.toString()));
@@ -108,7 +108,7 @@ function update(user) {
 
     userService.update(user).then(
       user => {
-        dispatch(success());
+        dispatch(success(user));
         history.push('/users');
         dispatch(alertActions.success('Updated successful'));
       },

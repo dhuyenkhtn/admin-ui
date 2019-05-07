@@ -8,16 +8,15 @@ import { alertActions, customerActions } from '../../_actions';
 
 function UserRow(props) {
   const { user } = props;
-  const userLink = `/customers/${user._id}`;
 
   const getBadge = status => {
     return status === 'active'
       ? 'success'
-      : status === 'inactive'
+      : status === 'banned'
       ? 'secondary'
       : status === 'pending'
       ? 'warning'
-      : status === 'banned'
+      : status === 'inactive'
       ? 'danger'
       : 'primary';
   };
@@ -25,7 +24,7 @@ function UserRow(props) {
   return (
     <tr key={user._id.toString()}>
       <td>
-        <Link to={userLink}>{user.username}</Link>
+        <Link to={`/customers/edit/${user._id}`}>{user.username}</Link>
       </td>
       <td>{user.domain}</td>
       <td>{user.userPrincipalName}</td>
@@ -42,7 +41,7 @@ function UserRow(props) {
 class Customers extends Component {
   constructor(props) {
     super(props);
-    this.props.dispatch(alertActions.clear());
+    // this.props.dispatch(alertActions.clear());
   }
 
   componentDidMount() {

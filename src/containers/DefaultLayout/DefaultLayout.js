@@ -22,13 +22,23 @@ import resellerNavigation from '../../_nav.reseller';
 // routes config
 import routes from '../../routes';
 import { authentication } from '../../_reducers/authentication.reducer';
+import { alertActions } from '../../_actions/alert.actions';
+import { history } from '../../_helpers';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
-
+  constructor(props) {
+    super(props);
+    const { dispatch } = this.props;
+    history.listen((location, action) => {
+      // clear alert on location change
+      dispatch(alertActions.clear());
+    });
+  }
+  
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
@@ -115,4 +125,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {})(DefaultLayout);
+export default connect(mapStateToProps)(DefaultLayout);

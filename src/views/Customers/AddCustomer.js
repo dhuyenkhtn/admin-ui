@@ -59,19 +59,19 @@ class AddCustomer extends Component {
   };
 
   handleValidate = () => {
-    const { username, givenName, surname, domain, jobTitle } = this.state;
+    const { username, givenName, surname, domain } = this.state;
     if (username.trim().length < 5) {
       this.setState({ error: 'Username must at least 5 characters length' });
       return false;
     }
 
     if (givenName.trim().length === 0) {
-      this.setState({ error: 'Given name must not be empty.' });
+      this.setState({ error: 'First name must not be empty.' });
       return false;
     }
 
     if (surname.trim().length === 0) {
-      this.setState({ error: 'Email must not be empty.' });
+      this.setState({ error: 'Last name must not be empty.' });
       return false;
     }
 
@@ -80,16 +80,13 @@ class AddCustomer extends Component {
       return false;
     }
 
-    if (jobTitle.trim().length === 0) {
-      this.setState({ error: 'Job title must not be empty.' });
-      return false;
-    }
-
     return true;
   };
 
   render() {
     const { error } = this.state;
+    const { props, state } = this;
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -98,119 +95,99 @@ class AddCustomer extends Component {
               <CardHeader>
                 <strong>
                   <i className="icon-info pr-1" />
-                  Add new
+                  Add new user
                 </strong>
               </CardHeader>
               <CardBody>
                 {error && <Alert color="danger">{error}</Alert>}
-                {this.props.message && <Alert color={this.props.color}>{this.props.message}</Alert>}
+                {props.message && <Alert color={props.color}>{props.message}</Alert>}
                 <Form action="" method="post" onSubmit={this.handleSubmit}>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-user" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                        autoComplete="username"
-                        value={this.state.username}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="username">Username</Label>
+                    <Input
+                      type="text"
+                      id="username"
+                      name="username"
+                      placeholder="Username..."
+                      autoComplete="username"
+                      value={state.username}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-asterisk" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="select"
-                        name="domain"
-                        id="domain"
-                        defaultValue=""
-                        value={this.state.domain}
-                        onChange={this.handleOnChange}
-                      >
-                        <option selected={this.state.domain === ''} value="">
-                          -- Please select domain --
+                    <Label htmlFor="domain">Domain</Label>
+                    <Input
+                      type="select"
+                      name="domain"
+                      id="domain"
+                      defaultValue=""
+                      value={state.domain}
+                      onChange={this.handleOnChange}
+                    >
+                      <option selected={state.domain === ''} value="">
+                        -- Please select domain --
+                      </option>
+                      {props.canUseDomains.map(item => (
+                        <option selected={state.domain === item} value={item}>
+                          {item}
                         </option>
-                        {this.props.canUseDomains.map(item => (
-                          <option selected={this.state.domain === item} value={item}>
-                            {item}
-                          </option>
-                        ))}
-                      </Input>
-                    </InputGroup>
+                      ))}
+                    </Input>
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-envelope" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        id="givenName"
-                        name="givenName"
-                        placeholder="First name"
-                        autoComplete="givenName"
-                        value={this.state.givenName}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="givenName">First name</Label>
+                    <Input
+                      type="text"
+                      id="givenName"
+                      name="givenName"
+                      placeholder="First name..."
+                      autoComplete="givenName"
+                      value={state.givenName}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-envelope" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        id="surname"
-                        name="surname"
-                        placeholder="Last name"
-                        autoComplete="surname"
-                        value={this.state.surname}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="surname">Last name</Label>
+                    <Input
+                      type="text"
+                      id="surname"
+                      name="surname"
+                      placeholder="Last name..."
+                      autoComplete="surname"
+                      value={state.surname}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-envelope" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        id="jobTitle"
-                        name="jobTitle"
-                        placeholder="Job title"
-                        autoComplete="jobTitle"
-                        value={this.state.jobTitle}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="displayName">Display name</Label>
+                    <Input
+                      disabled
+                      type="text"
+                      id="displayName"
+                      name="displayName"
+                      placeholder="Display name will be..."
+                      value={`${state.givenName} ${state.surname}`}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="displayName">Job title: (Optional)</Label>
+                    <Input
+                      type="text"
+                      id="jobTitle"
+                      name="jobTitle"
+                      placeholder="Job title"
+                      value={state.jobTitle}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup className="form-actions">
                     <Button
-                      disabled={!!this.state.submitted}
+                      disabled={!!state.submitted}
                       type="submit"
                       size="sm"
                       color="success"
                     >
-                      {!!this.state.submitted ? 'Saving...' : 'Save'}
+                      {!!state.submitted ? 'Creating...' : 'Create'}
                     </Button>
                   </FormGroup>
                 </Form>

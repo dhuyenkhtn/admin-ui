@@ -91,24 +91,24 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  
-  
+
   { path: '/users', exact: true, name: 'Resellers', component: Users },
   { path: '/users/add', exact: true, name: 'Add Reseller', component: AddUser },
   { path: '/users/detail/:id', exact: true, name: 'Detail', component: User },
   { path: '/users/edit/:id', exact: true, name: 'Edit Reseller', component: EditUser },
   { path: '/users/assign-token/:id', exact: true, name: 'Assign Token', component: AssignToken },
-  
+
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
-  
+
   { path: '/domains', exact: true, name: 'Domains Management', component: Domains },
   { path: '/domains/add', exact: true, name: 'Add Domain', component: AddDomain },
   { path: '/domains/:domain', exact: true, name: 'Edit Domain', component: EditDomain },
-  
+
   { path: '/customers', exact: true, name: 'User Management', component: Customers },
   { path: '/customers/add', exact: true, name: 'Add new user', component: AddCustomer },
-  { path: '/customers/:id', exact: true, name: 'Edit user', component: Customer },
-  
+  { path: '/customers/edit/:id', exact: true, name: 'Edit user', component: EditCustomer },
+  { path: '/customers/detail/:id', exact: true, name: 'Edit user', component: Customer },
+
   { path: '/configurations', exact: true, name: 'Configurations', component: Configurations },
   { path: '/configurations/create', exact: true, name: 'Add config', component: AddConfiguration },
   { path: '/configurations/:id', exact: true, name: 'Edit config', component: EditConfiguration }

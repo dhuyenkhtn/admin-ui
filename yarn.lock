@@ -4593,6 +4593,11 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
+generate-password@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/generate-password/-/generate-password-1.4.1.tgz#33ab0f004d3adbde6c63bfc8bb9798da2a848174"
+  integrity sha512-MwMSkOIKkgYBG3JrquF0m/Rky+pl5jZFNmoroE9bQU5VawFDKdJfxMx1qBthPusx8GQyNWSW0m+Jaw0mZnqApg==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -7622,6 +7627,13 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
+
+password-generator@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/password-generator/-/password-generator-2.2.0.tgz#fc75cff795110923e054a5a71623433240bf5e49"
+  integrity sha1-/HXP95URCSPgVKWnFiNDMkC/Xkk=
+  dependencies:
+    yargs-parser "^8.0.0"
 
 path-browserify@0.0.0:
   version "0.0.0"
@@ -11246,6 +11258,13 @@ yargs-parser@^5.0.0:
   integrity sha1-J17PDX/+Bcd+ZOfIbkzZS/DhIoo=
   dependencies:
     camelcase "^3.0.0"
+
+yargs-parser@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-8.1.0.tgz#f1376a33b6629a5d063782944da732631e966950"
+  integrity sha512-yP+6QqN8BmrgW2ggLtTbdrOyBNSI7zBa4IykmiV5R1wl1JWNxQvWhMfMdmzIYtKU7oP3OOInY/tl2ov3BDjnJQ==
+  dependencies:
+    camelcase "^4.1.0"
 
 yargs-parser@^9.0.2:
   version "9.0.2"

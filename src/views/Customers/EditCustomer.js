@@ -18,33 +18,43 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { alertActions, userActions } from '../../_actions';
+import { alertActions, customerActions } from '../../_actions';
+import PasswordUtils from '../../_utils/Password';
 
 class EditCustomer extends Component {
   constructor(props) {
     super(props);
-    const { match, dispatch } = this.props;
+    const { match, dispatch } = props;
     this.state = {
       _id: match.params.id,
-      username: '',
-      email: '',
-      fullname: '',
-      password: '',
-      role: '',
-      status: ''
+      givenName: '',
+      surname: '',
+      jobTitle: '',
+      mobilePhone: null,
+      domain: '',
+      accountEnabled: false,
+      userPrincipalName: '',
+      password: ''
     };
     dispatch(alertActions.clear());
   }
 
   componentDidMount() {
-    const users = this.props.users || [];
-    const user = users.find(e => e._id.toString() === this.props.match.params.id) || {};
-    const { username, email, fullname, password, role, status } = user;
+    const { props } = this;
+    const customer = props.customers.find(e => e._id === props.match.params.id) || {};
+    const {
+      givenName,
+      surname,
+      jobTitle,
+      mobilePhone,
+      userPrincipalName,
+      accountEnabled
+    } = customer;
 
-    this.setState({ username, email, fullname, password, role, status });
+    this.setState({ givenName, surname, jobTitle, mobilePhone, userPrincipalName, accountEnabled });
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.message !== this.props.message) {
       this.setState({ submitted: false });
     }
@@ -62,49 +72,36 @@ class EditCustomer extends Component {
     const isValidForm = this.handleValidate();
 
     if (isValidForm) {
-      this.props.dispatch(userActions.update(this.state));
+      this.props.dispatch(customerActions.update(this.state));
     } else {
       this.setState({ submitted: false });
     }
   };
 
   handleValidate = () => {
-    const { username, email, password, role, status, fullname } = this.state;
-    if (username.trim().length < 5) {
-      this.setState({ error: 'Username must at least 5 characters length' });
+    const { givenName, surname } = this.state;
+    if (givenName.trim().length === 0) {
+      this.setState({ error: 'First name must not be empty.' });
       return false;
     }
 
-    if (fullname.trim().length === 0) {
-      this.setState({ error: 'Fullname must not be empty.' });
-      return false;
-    }
-
-    if (email.trim().length === 0) {
-      this.setState({ error: 'Email must not be empty.' });
-      return false;
-    }
-
-    if (password && password.trim().length !== 0 && password.trim().length < 6) {
-      this.setState({ error: 'Username must at least 6 characters length' });
-      return false;
-    }
-
-    if (role === '') {
-      this.setState({ error: 'Please select role' });
-      return false;
-    }
-
-    if (status === '') {
-      this.setState({ error: 'Please select status' });
+    if (surname.trim().length === 0) {
+      this.setState({ error: 'Last name must not be empty.' });
       return false;
     }
 
     return true;
   };
 
+  handleResetPassword = () => {
+    const password = PasswordUtils.generateSimpleStrongPassword();
+    this.setState({ password });
+  };
+
   render() {
     const { error } = this.state;
+    const { props, state } = this;
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -113,151 +110,119 @@ class EditCustomer extends Component {
               <CardHeader>
                 <strong>
                   <i className="icon-info pr-1" />
-                  Edit <small>{this.state.username}</small>
+                  Edit <small>{state.userPrincipalName}</small>
                 </strong>
               </CardHeader>
               <CardBody>
                 {error && <Alert color="danger">{error}</Alert>}
-                {this.props.message && <Alert color={this.props.color}>{this.props.message}</Alert>}
+                {props.message && <Alert color={props.color}>{props.message}</Alert>}
                 <Form action="" method="post" onSubmit={this.handleSubmit}>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-user" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        disabled={true}
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                        autoComplete="username"
-                        value={this.state.username}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="userPrincipalName">Email</Label>
+                    <Input
+                      disabled
+                      type="text"
+                      id="userPrincipalName"
+                      name="userPrincipalName"
+                      placeholder="Email..."
+                      value={state.userPrincipalName}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-envelope" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email"
-                        autoComplete="email"
-                        value={this.state.email}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="password">
+                      <span>{`Password:   `}</span>
+                      {state.password.length === 0 && (
+                        <Button
+                          type="button"
+                          size="sm"
+                          color="warning"
+                          onClick={this.handleResetPassword}
+                        >
+                          Reset password
+                        </Button>
+                      )}
+                      {state.password.length > 0 && (
+                        <small style={{color: '#ff8111'}}>
+                          It shows only once, please copy this password to somewhere else.
+                        </small>
+                      )}
+                    </Label>
+                    <Input
+                      disabled
+                      type="text"
+                      id="password"
+                      name="password"
+                      placeholder="******"
+                      value={state.password}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-envelope" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        id="fullname"
-                        name="fullname"
-                        placeholder="Fullname"
-                        autoComplete="fullname"
-                        value={this.state.fullname}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="givenName">First name</Label>
+                    <Input
+                      type="text"
+                      id="givenName"
+                      name="givenName"
+                      placeholder="First name..."
+                      autoComplete="givenName"
+                      value={state.givenName}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-asterisk" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        value={this.state.password}
-                        onChange={this.handleOnChange}
-                      />
-                    </InputGroup>
+                    <Label htmlFor="surname">Last name</Label>
+                    <Input
+                      type="text"
+                      id="surname"
+                      name="surname"
+                      placeholder="Last name..."
+                      autoComplete="surname"
+                      value={state.surname}
+                      onChange={this.handleOnChange}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-asterisk" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="select"
-                        name="role"
-                        id="role"
-                        defaultValue=""
-                        value={this.state.role}
-                        onChange={this.handleOnChange}
-                      >
-                        <option selected={this.state.role === ''} value="">
-                          -- Please select role --
-                        </option>
-                        <option selected={this.state.role === 'admin'} value="admin">
-                          Admin
-                        </option>
-                        <option selected={this.state.role === 'reseller'} value="reseller">
-                          Reseller
-                        </option>
-                        <option selected={this.state.role === 'user'} value="user">
-                          User
-                        </option>
-                      </Input>
-                    </InputGroup>
+                    <Label htmlFor="displayName">Display name</Label>
+                    <Input
+                      disabled
+                      type="text"
+                      id="displayName"
+                      name="displayName"
+                      placeholder="Display name will be..."
+                      value={`${state.givenName} ${state.surname}`}
+                    />
                   </FormGroup>
                   <FormGroup>
-                    <InputGroup>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-asterisk" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="select"
-                        name="status"
-                        id="status"
-                        defaultValue=""
-                        value={this.state.status}
-                        onChange={this.handleOnChange}
-                      >
-                        <option selected={this.state.status === ''} value="">
-                          -- Please select status --
-                        </option>
-                        <option selected={this.state.status === 'active'} value="active">
-                          Active
-                        </option>
-                        <option selected={this.state.status === 'inactive'} value="inactive">
-                          Inactive
-                        </option>
-                      </Input>
-                    </InputGroup>
+                    <Label htmlFor="jobTitle">Job title: (Optional)</Label>
+                    <Input
+                      type="text"
+                      id="jobTitle"
+                      name="jobTitle"
+                      placeholder="Job title"
+                      value={state.jobTitle}
+                      onChange={this.handleOnChange}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="accountEnabled">Status</Label>
+                    <Input
+                      type="select"
+                      id="accountEnabled"
+                      name="accountEnabled"
+                      defaultValue=""
+                      value={state.accountEnabled}
+                      onChange={this.handleOnChange}
+                    >
+                      <option selected={state.accountEnabled === true} value={true}>
+                        Active
+                      </option>
+                      <option selected={state.accountEnabled === false} value={false}>
+                        Inactive
+                      </option>
+                    </Input>
                   </FormGroup>
                   <FormGroup className="form-actions">
-                    <Button
-                      disabled={!!this.state.submitted}
-                      type="submit"
-                      size="sm"
-                      color="success"
-                    >
-                      Save
+                    <Button disabled={!!state.submitted} type="submit" size="sm" color="success">
+                      {!!state.submitted ? 'Saving...' : 'Save'}
                     </Button>
                   </FormGroup>
                 </Form>
@@ -272,12 +237,11 @@ class EditCustomer extends Component {
 
 const mapStateToProps = state => {
   const { color, message } = state.alert;
-  const { items } = state.users;
-
+  const { user } = state.authentication;
   return {
     color,
     message,
-    users: items
+    customers: state.customers.items || []
   };
 };
 
