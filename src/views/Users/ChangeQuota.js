@@ -20,11 +20,11 @@ import {
 import { connect } from 'react-redux';
 import { userActions } from '../../_actions';
 
-class AssignToken extends Component {
+class ChangeQuota extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: 0
+      quantity: ''
     };
   }
 
@@ -42,15 +42,15 @@ class AssignToken extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ submitted: true, error: undefined });
-
+    
     const { quantity } = this.state;
-    if (parseInt(quantity) < 1) {
+    if (isNaN(parseInt(quantity)) || parseInt(quantity) < 1) {
       this.setState({ submitted: false });
       return false;
     }
 
     const userId = this.props.match.params.id;
-    this.props.dispatch(userActions.assignToken(userId, quantity));
+    this.props.dispatch(userActions.changeQuota(userId, quantity));
   };
 
   render() {
@@ -76,14 +76,17 @@ class AssignToken extends Component {
               <CardHeader>
                 <strong>
                   <i className="icon-info pr-1" />
-                  Assign tokens for: <i>{user.username}</i>
+                  Increase Quota for <i>{user.username}</i>
                 </strong>
               </CardHeader>
               <CardBody>
                 {this.props.alertMessage && (
                   <Alert color={this.props.alertColor}>{this.props.alertMessage}</Alert>
                 )}
-                
+  
+                <Alert color="warning">
+                  Current Quota: <i>{user.usersInBucket}</i>
+                </Alert>
                 <Form action="" method="post" onSubmit={this.handleSubmit}>
                   <FormGroup>
                     <InputGroup>
@@ -110,7 +113,7 @@ class AssignToken extends Component {
                       size="sm"
                       color="success"
                     >
-                      Assign
+                      Save
                     </Button>
                   </FormGroup>
                 </Form>
@@ -133,4 +136,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AssignToken);
+export default connect(mapStateToProps)(ChangeQuota);

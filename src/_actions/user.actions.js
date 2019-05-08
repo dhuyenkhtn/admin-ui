@@ -11,7 +11,7 @@ export const userActions = {
   getAll,
   delete: _delete,
   update,
-  assignToken
+  changeQuota
 };
 
 function login(username, password) {
@@ -171,15 +171,15 @@ function _delete(id) {
   }
 }
 
-function assignToken(userId, quantity) {
+function changeQuota(userId, quantity) {
   return dispatch => {
     dispatch(request(quantity));
 
-    userService.assignToken(userId, quantity).then(
+    userService.changeQuota(userId, quantity).then(
       () => {
         dispatch(success());
-        history.push(`/users/${userId}`);
-        dispatch(alertActions.success(`Assigned ${quantity} tokens`));
+        history.push(`/users`);
+        dispatch(alertActions.success(`Success!`));
       },
       error => {
         dispatch(failure(error.toString()));

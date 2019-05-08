@@ -43,17 +43,20 @@ function UserRow(props) {
       <td>
         <Badge color={getRoleBadge(user.role)}>{user.role.toUpperCase()}</Badge>
       </td>
+      <td>{user.usersInBucket}</td>
       <td>{user.tokenInBucket}</td>
       <td>{user.tokenUsed}</td>
-      <td>{user.canUseDomains.join(' | ')}</td>
+      <td>
+        {user.canUseDomains.map(e => <Badge color="primary">{e}</Badge>)}
+      </td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
         <Link to={userLink}>
-          <Badge color={getBadge(user.status)}>{user.status}</Badge>
+          <Badge color={getBadge(user.status)}>{user.status.toUpperCase()}</Badge>
         </Link>
       </td>
       <td>
-        <Link to={`/users/assign-token/${user._id}`}>Assign token</Link>
+        <Link to={`/users/change-quota/${user._id}`}>Change quota</Link>
       </td>
     </tr>
   );
@@ -62,7 +65,7 @@ function UserRow(props) {
 class Users extends Component {
   constructor(props) {
     super(props);
-    this.props.dispatch(alertActions.clear());
+    // this.props.dispatch(alertActions.clear());
   }
 
   componentDidMount() {
@@ -101,6 +104,7 @@ class Users extends Component {
                       <th scope="col">Username</th>
                       <th scope="col">Name</th>
                       <th scope="col">Role</th>
+                      <th scope="col">Quota</th>
                       <th scope="col">Tokens</th>
                       <th scope="col">Tokens Used</th>
                       <th scope="col">Domains</th>

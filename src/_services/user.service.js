@@ -9,7 +9,7 @@ export const userService = {
   getById,
   update,
   delete: _delete,
-  assignToken
+  changeQuota
 };
 
 function login(username, password) {
@@ -34,14 +34,14 @@ function logout() {
   localStorage.removeItem('user');
 }
 
-function assignToken(userId, quantity) {
+function changeQuota(userId, quantity) {
   const requestOptions = {
     method: 'POST',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId, quantity })
   };
 
-  return fetch(`${config.apiUrl}/tokens/assign`, requestOptions).then(handleResponse);
+  return fetch(`${config.apiUrl}/users/users-in-bucket`, requestOptions).then(handleResponse);
 }
 
 function getAll() {

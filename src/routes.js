@@ -9,10 +9,10 @@ import Customers from './views/Customers/Customers';
 import AddCustomer from './views/Customers/AddCustomer';
 import EditCustomer from './views/Customers/EditCustomer';
 import Customer from './views/Customers/Customer';
-import AssignToken from './views/Users/AssignToken';
 import Configurations from './views/Configurations/Configurations';
 import AddConfiguration from './views/Configurations/AddConfiguration';
 import EditConfiguration from './views/Configurations/EditConfiguration';
+import ChangeQuota from './views/Users/ChangeQuota';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -96,7 +96,7 @@ const routes = [
   { path: '/users/add', exact: true, name: 'Add Reseller', component: AddUser },
   { path: '/users/detail/:id', exact: true, name: 'Detail', component: User },
   { path: '/users/edit/:id', exact: true, name: 'Edit Reseller', component: EditUser },
-  { path: '/users/assign-token/:id', exact: true, name: 'Assign Token', component: AssignToken },
+  { path: '/users/change-quota/:id', exact: true, name: 'Change quota', component: ChangeQuota },
 
   { path: '/tokens', exact: true, name: 'Tokens Management', component: Tokens },
 
