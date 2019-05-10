@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
+      name: 'My Dashboard',
       url: '/dashboard',
       icon: 'icon-speedometer',
       badge: {
@@ -10,9 +10,14 @@ export default {
       },
     },
     {
-      name: 'Users',
+      name: 'Users Management',
       url: '/customers',
       icon: 'icon-people',
+    },
+    {
+      name: 'Tokens Management',
+      url: '/tokens',
+      icon: 'icon-layers',
     },
   ],
 };

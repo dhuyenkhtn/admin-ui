@@ -25,6 +25,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { DashboardReseller } from './Dasboard.Reseller';
 import { DashboardAdmin } from './Dasboard.Admin';
+import { userActions } from '../../_actions';
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
 
@@ -62,7 +63,11 @@ class Dashboard extends Component {
       radioSelected: 2
     };
   }
-
+  
+  componentDidMount() {
+    this.props.dispatch(userActions.getMe());
+  }
+  
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -82,12 +87,13 @@ class Dashboard extends Component {
 
     return (
       <div className="animated fadeIn">
+        <p>{`Hi, ${user.username}`}</p>
         {user.role === 'admin' && (
-          <DashboardAdmin user={user}/>
+          <DashboardAdmin user={user} />
         )}
         
         {user.role === 'reseller' && (
-          <DashboardReseller user={user}/>
+          <DashboardReseller user={user} />
         )}
       </div>
     );
@@ -101,6 +107,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(
-  mapStateToProps,
-  {}
+  mapStateToProps
 )(Dashboard);

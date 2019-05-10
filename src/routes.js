@@ -107,7 +107,7 @@ const routes = [
   { path: '/customers', exact: true, name: 'User Management', component: Customers },
   { path: '/customers/add', exact: true, name: 'Add new user', component: AddCustomer },
   { path: '/customers/edit/:id', exact: true, name: 'Edit user', component: EditCustomer },
-  { path: '/customers/detail/:id', exact: true, name: 'Edit user', component: Customer },
+  { path: '/customers/detail/:id', exact: true, name: 'User detail', component: Customer },
 
   { path: '/configurations', exact: true, name: 'Configurations', component: Configurations },
   { path: '/configurations/create', exact: true, name: 'Add config', component: AddConfiguration },

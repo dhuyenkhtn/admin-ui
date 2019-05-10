@@ -34,6 +34,9 @@ function UserRow(props) {
       </td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>{user.createdBy}</td>
+      <td>
+        <Link to={`/customers/detail/${user._id}`}>Details</Link>
+      </td>
     </tr>
   );
 }
@@ -83,6 +86,7 @@ class Customers extends Component {
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Created By</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>

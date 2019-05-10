@@ -36,25 +36,20 @@ function UserRow(props) {
   return (
     <tr key={user._id.toString()}>
       <td>
-        {/*<Link to={`/users/detail/${user._id}`}>{user.username}</Link>*/}
         <Link to={userLink}>{user.username}</Link>
       </td>
       <td>{user.fullname}</td>
-      <td>
-        <Badge color={getRoleBadge(user.role)}>{user.role.toUpperCase()}</Badge>
-      </td>
-      <td>{user.usersInBucket}</td>
+      <td>{user.role === 'admin' ? 'Unlimited' : user.usersInBucket}</td>
+      <td>{user.usersCreated}</td>
       <td>{user.tokenInBucket}</td>
-      <td>{user.tokenUsed}</td>
-      <td>
-        {user.canUseDomains.map(e => <Badge color="primary">{e}</Badge>)}
-      </td>
-      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
+      <td>{user.canUseDomains.map(e => <Badge color="primary">{e}</Badge>)}</td>
       <td>
         <Link to={userLink}>
           <Badge color={getBadge(user.status)}>{user.status.toUpperCase()}</Badge>
         </Link>
       </td>
+      <td><Badge color={getRoleBadge(user.role)}>{user.role.toUpperCase()}</Badge></td>
+      <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
         <Link to={`/users/change-quota/${user._id}`}>Change quota</Link>
       </td>
@@ -103,13 +98,13 @@ class Users extends Component {
                     <tr>
                       <th scope="col">Username</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Role</th>
                       <th scope="col">Quota</th>
+                      <th scope="col">Users Created</th>
                       <th scope="col">Tokens</th>
-                      <th scope="col">Tokens Used</th>
                       <th scope="col">Domains</th>
-                      <th scope="col">Created At</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">Created At</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
