@@ -6,7 +6,8 @@ import { history } from '../_helpers';
 export const customerActions = {
   create,
   update,
-  getAll
+  getAll,
+  assignLicense
 };
 
 function create(customer) {
@@ -79,6 +80,34 @@ function update(data) {
         dispatch(success(updatedCustomer));
         history.push('/customers');
         dispatch(alertActions.success(`User ${updatedCustomer.userPrincipalName} has been updated.`));
+      },
+      error => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
+function assignLicense(id) {
+  function request(customer) {
+    return { type: customerConstants.UPDATE_REQUEST, customer };
+  }
+  function success(customer) {
+    return { type: customerConstants.UPDATE_SUCCESS, customer };
+  }
+  function failure(error) {
+    return { type: customerConstants.UPDATE_FAILURE, error };
+  }
+  
+  return dispatch => {
+    dispatch(request(id));
+    
+    customerService.assignLicense(id).then(
+      updatedCustomer => {
+        dispatch(success(updatedCustomer));
+        dispatch(getAll());
+        dispatch(alertActions.success(`Successfully assigned licenses for ${updatedCustomer.userPrincipalName}`));
       },
       error => {
         dispatch(failure(error.toString()));

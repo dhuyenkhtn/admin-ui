@@ -7,7 +7,7 @@ import { Alert, Badge, Button, Card, CardBody, CardHeader, Col, Row, Table } fro
 import { alertActions, customerActions } from '../../_actions';
 
 function UserRow(props) {
-  const { user } = props;
+  const { user, handleAssignLicense, requesting } = props;
 
   const getBadge = status => {
     return status === 'active'
@@ -24,9 +24,9 @@ function UserRow(props) {
   return (
     <tr key={user._id.toString()}>
       <td>
-        <Link to={`/customers/edit/${user._id}`}>{user.username}</Link>
+        <Link to={`/customers/detail/${user._id}`}>{user.username}</Link>
       </td>
-      <td>{user.domain}</td>
+      {/*<td>{user.domain}</td>*/}
       <td>{user.userPrincipalName}</td>
       <td>{user.displayName}</td>
       <td>
@@ -35,7 +35,24 @@ function UserRow(props) {
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>{user.createdBy}</td>
       <td>
-        <Link to={`/customers/detail/${user._id}`}>Details</Link>
+        <Button style={{ margin: '2px' }} size="sm" color="primary">
+          <i className="fa fa-pencil-square-o" aria-hidden="true" />
+          {` `}
+          <Link style={{ color: '#fff' }} to={`/customers/edit/${user._id}`}>
+            Edit
+          </Link>
+        </Button>
+        <Button
+          onClick={() => handleAssignLicense(user.id)}
+          disabled={!!requesting}
+          style={{ margin: '2px' }}
+          size="sm"
+          color="warning"
+        >
+          <i className="fa fa-address-card" aria-hidden="true" />
+          {` `}
+          {!!requesting ? 'Assigning...' : 'Assign licenses'}
+        </Button>
       </td>
     </tr>
   );
@@ -51,7 +68,12 @@ class Customers extends Component {
     this.props.dispatch(customerActions.getAll());
   }
 
+  handleAssignLicense = customerId => {
+    this.props.dispatch(customerActions.assignLicense(customerId));
+  };
+
   render() {
+    const { requesting } = this.props;
     const userList = this.props.items;
 
     return (
@@ -80,7 +102,7 @@ class Customers extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Username</th>
-                      <th scope="col">Domain</th>
+                      {/*<th scope="col">Domain</th>*/}
                       <th scope="col">Email</th>
                       <th scope="col">Full name</th>
                       <th scope="col">Status</th>
@@ -90,7 +112,15 @@ class Customers extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {userList && userList.map((user, index) => <UserRow key={index} user={user} />)}
+                    {userList &&
+                      userList.map((user, index) => (
+                        <UserRow
+                          key={index}
+                          user={user}
+                          handleAssignLicense={this.handleAssignLicense}
+                          requesting={requesting}
+                        />
+                      ))}
                   </tbody>
                 </Table>
                 {(!userList || userList.length === 0) && (
@@ -106,12 +136,13 @@ class Customers extends Component {
 }
 
 const mapStateToProps = state => {
-  const { items } = state.customers;
+  const { items, requesting } = state.customers;
   const { color, message } = state.alert;
   return {
     items,
     alertColor: color,
-    alertMessage: message
+    alertMessage: message,
+    requesting
   };
 };
 

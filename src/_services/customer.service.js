@@ -6,6 +6,7 @@ export const customerService = {
   create,
   update,
   getAll,
+  assignLicense
 };
 
 
@@ -27,6 +28,15 @@ function update(params) {
   };
   
   return fetch(`${config.apiUrl}/customers/update/${params._id}`, requestOptions).then(handleResponse);
+}
+
+function assignLicense(id) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' },
+  };
+  
+  return fetch(`${config.apiUrl}/customers/assignLicenses/${id}`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
