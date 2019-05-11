@@ -21,6 +21,9 @@ function UserRow(props) {
       : 'primary';
   };
   const status = user.accountEnabled ? 'active' : 'inactive';
+  const licences = JSON.parse(user.assignedLicenses);
+  const isLicenseGranted = !!(Array.isArray(licences) && licences.length > 0);
+
   return (
     <tr key={user._id.toString()}>
       <td>
@@ -31,6 +34,9 @@ function UserRow(props) {
       <td>{user.displayName}</td>
       <td>
         <Badge color={getBadge(status)}>{status}</Badge>
+      </td>
+      <td>
+        <Badge color={getBadge(isLicenseGranted?'active' : 'inactive')}>{isLicenseGranted ? 'Assigned' : 'Empty'}</Badge>
       </td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>{user.createdBy}</td>
@@ -87,7 +93,7 @@ class Customers extends Component {
                   <Button
                     onClick={() => this.props.history.push('/customers/add')}
                     block
-                    color="primary"
+                    color="success"
                   >
                     <i className="fa fa-plus-square-o" /> Add new user
                   </Button>
@@ -106,6 +112,7 @@ class Customers extends Component {
                       <th scope="col">Email</th>
                       <th scope="col">Full name</th>
                       <th scope="col">Status</th>
+                      <th scope="col">License</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Created By</th>
                       <th scope="col">Actions</th>
