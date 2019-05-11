@@ -69,12 +69,12 @@ function deleteToken(id) {
   };
 }
 
-function getAll() {
+function getAll(filter) {
   return dispatch => {
     dispatch(request());
 
     tokenService
-      .getAll()
+      .getAll(filter)
       .then(tokens => dispatch(success(tokens)), error => dispatch(failure(error.toString())));
   };
 

@@ -86,7 +86,8 @@ class Tokens extends Component {
       quantity: '',
       error: undefined,
       isShowDeleteModal: false,
-      tokenToDelete: null
+      tokenToDelete: null,
+      isUsed: ''
     };
     this.props.dispatch(alertActions.clear());
   }
@@ -95,7 +96,17 @@ class Tokens extends Component {
     this.props.dispatch(tokenActions.getAll());
   }
   
-  // handleFilterChange
+  handleFilterChange = (e) => {
+    const {name, value} = e.target;
+    let filter = {[name]: value};
+    if (name === 'isUsed') {
+      if (value === "") {
+        filter = undefined;
+      }
+    }
+    this.setState({[name]: value});
+    this.props.dispatch(tokenActions.getAll(filter));
+  };
 
   toggleGenerateModal = () => {
     this.setState(prevState => ({ modal: !prevState.modal }));
@@ -170,7 +181,31 @@ class Tokens extends Component {
               </CardHeader>
               <CardBody>
                 {alertMessage && <Alert color={alertColor}>{alertMessage}</Alert>}
-
+                <InputGroup className="mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      Available
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    type="select"
+                    name="isUsed"
+                    id="isUsed"
+                    value={this.state.isUsed}
+                    onChange={this.handleFilterChange}
+                  >
+                    <option selected={this.state.isUsed === ''} value="">
+                      -- Filter by status --
+                    </option>
+                    <option selected={this.state.isUsed === "false"} value="false">
+                      Available
+                    </option>
+                    <option selected={this.state.isUsed === "true"} value="true">
+                      Used
+                    </option>
+                  </Input>
+                </InputGroup>
+                
                 <Table responsive hover>
                   <thead>
                     <tr>

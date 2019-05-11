@@ -9,13 +9,20 @@ export const tokenService = {
   deleteToken
 };
 
-function getAll() {
+function getAll(filter) {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
 
-  return fetch(`${config.apiUrl}/tokens`, requestOptions).then(handleResponse);
+  let query = '';
+  if (filter) {
+    console.log(filter);
+    query = Object.keys(filter)
+      .map(key => key + '=' + filter[key])
+      .join('&');
+  }
+  return fetch(`${config.apiUrl}/tokens?${query}`, requestOptions).then(handleResponse);
 }
 
 function lock(id) {
@@ -42,7 +49,7 @@ function generate(quantity) {
   const requestOptions = {
     method: 'POST',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({quantity})
+    body: JSON.stringify({ quantity })
   };
 
   return fetch(`${config.apiUrl}/tokens/generate`, requestOptions).then(handleResponse);
