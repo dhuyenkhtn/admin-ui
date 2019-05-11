@@ -51,7 +51,13 @@ function UserRow(props) {
       <td><Badge color={getRoleBadge(user.role)}>{user.role.toUpperCase()}</Badge></td>
       <td>{moment(user.createdAt).format('DD/MM/YY')}</td>
       <td>
-        <Link to={`/users/change-quota/${user._id}`}>Change quota</Link>
+        {user.role === 'reseller' && (
+          <Button style={{ margin: '2px' }} size="sm" color="primary">
+              <i className="fa fa-pencil-square-o" aria-hidden="true" />
+              {` `}
+            <Link style={{color: '#fff'}} to={`/users/change-quota/${user._id}`}>Change quota</Link>
+          </Button>
+        )}
       </td>
     </tr>
   );

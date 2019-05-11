@@ -94,6 +94,8 @@ class Tokens extends Component {
   componentDidMount() {
     this.props.dispatch(tokenActions.getAll());
   }
+  
+  // handleFilterChange
 
   toggleGenerateModal = () => {
     this.setState(prevState => ({ modal: !prevState.modal }));
