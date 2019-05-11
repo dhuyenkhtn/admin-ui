@@ -6,7 +6,8 @@ import { configurationConstants } from '../_constants';
 export const configurationActions = {
   create,
   getAll,
-  update
+  update,
+  synchronize
 };
 
 function create(params) {
@@ -64,6 +65,36 @@ function update(params) {
     return { type: configurationConstants.UPDATE_FAILURE, error };
   }
 }
+function synchronize(tenant) {
+  function request() {
+    return { type: configurationConstants.UPDATE_REQUEST };
+  }
+  function success() {
+    return { type: configurationConstants.UPDATE_SUCCESS };
+  }
+  function failure(error) {
+    return { type: configurationConstants.UPDATE_FAILURE, error };
+  }
+  return dispatch => {
+    dispatch(request());
+    configurationService.synchronize({ tenant }).then(
+      (response) => {
+        setTimeout(() => {
+          history.push('/configurations');
+        }, 3000);
+        
+        if (response && response.message) {
+          dispatch(alertActions.success(response.message));
+        }
+        dispatch(success());
+      },
+      error => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
 
 function getAll() {
   return dispatch => {
@@ -71,7 +102,10 @@ function getAll() {
 
     configurationService
       .getAll()
-      .then(configurations => dispatch(success(configurations)), error => dispatch(failure(error.toString())));
+      .then(
+        configurations => dispatch(success(configurations)),
+        error => dispatch(failure(error.toString()))
+      );
   };
 
   function request() {

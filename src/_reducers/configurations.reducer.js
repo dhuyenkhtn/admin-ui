@@ -18,6 +18,16 @@ export function configurations(state = {}, action) {
       return {
         error: action.error
       };
+    case configurationConstants.UPDATE_REQUEST:
+      return {
+        ...state,
+        isSyncing: true
+      };
+    case configurationConstants.UPDATE_SUCCESS:
+      return {
+        ...state,
+        isSyncing: false
+      };
     case configurationConstants.UPDATE_FAILURE:
       return {
         error: action.error

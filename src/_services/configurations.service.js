@@ -5,7 +5,8 @@ import { handleResponse } from './user.service';
 export const configurationService = {
   create,
   getAll,
-  update
+  update,
+  synchronize
 };
 
 function getAll() {
@@ -35,4 +36,14 @@ function update(params) {
   };
 
   return fetch(`${config.apiUrl}/configurations/update/${params.clientId}`, requestOptions).then(handleResponse);
+}
+
+function synchronize(params) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    body: JSON.stringify(params)
+  };
+
+  return fetch(`${config.apiUrl}/customers/synchronize`, requestOptions).then(handleResponse);
 }
