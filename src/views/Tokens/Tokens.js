@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -25,6 +25,7 @@ import {
 
 import { alertActions } from '../../_actions';
 import { tokenActions } from '../../_actions/tokens.actions';
+import { Link } from 'react-router-dom';
 
 function Item({ item, isAdmin, onLock, onDelete }) {
   const getBadge = isUsed => {
@@ -37,29 +38,39 @@ function Item({ item, isAdmin, onLock, onDelete }) {
       <td>
         <Badge color={getBadge(item.isUsed)}>{item.isUsed ? 'Used' : 'Available'}</Badge>
       </td>
+      <td>
+        {item.usedFor ? (
+          <Link to={`/customers/detail/${item.usedFor}`}>{item.usedFor}</Link>
+        ) : (
+          `...`
+        )}
+      </td>
       <td>{item.usedAt ? moment(item.usedAt).format('DD/MM/YY') : '...'}</td>
-      <td>{item.usedFor || '...'}</td>
       {isAdmin && <td>{item.generatedBy}</td>}
       <td>
         <Badge color={getBadge(item.status !== 'active')}>{item.status}</Badge>
       </td>
       {isAdmin && (
         <td>
-          <Button
-            disabled={item.status === 'locked'}
-            size="sm"
-            type="button"
-            color="danger"
-            onClick={() => onLock(item._id)}
-          >
-            <i className="fa fa-lock" />
-            {` Lock`}
-          </Button>
-          {`   `}
-          <Button size="sm" type="button" color="danger" onClick={() => onDelete(item._id)}>
-            <i className="fa fa-trash" aria-hidden="true" />
-            {` Delete`}
-          </Button>
+          {item.status !== 'used' && (
+            <Fragment>
+              <Button
+                disabled={item.status === 'locked'}
+                size="sm"
+                type="button"
+                color="danger"
+                onClick={() => onLock(item._id)}
+              >
+                <i className="fa fa-lock" />
+                {` Lock`}
+              </Button>
+              {`   `}
+              <Button size="sm" type="button" color="danger" onClick={() => onDelete(item._id)}>
+                <i className="fa fa-trash" aria-hidden="true" />
+                {` Delete`}
+              </Button>
+            </Fragment>
+          )}
         </td>
       )}
     </tr>

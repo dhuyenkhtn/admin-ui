@@ -5,9 +5,11 @@ import { history } from '../_helpers';
 
 export const customerActions = {
   create,
+  register,
   update,
   getAll,
-  assignLicense
+  assignLicense,
+  checkToken
 };
 
 function create(customer) {
@@ -35,6 +37,59 @@ function create(customer) {
   }
   function failure(error) {
     return { type: customerConstants.CREATE_FAILURE, error };
+  }
+}
+
+function register(customer) {
+  return dispatch => {
+    dispatch(request(customer));
+
+    customerService.register(customer).then(
+      customer => {
+        dispatch(success(customer));
+        dispatch(alertActions.success(`Your account has just been created.`));
+      },
+      error => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+
+  function request(customer) {
+    return { type: customerConstants.REGISTER_REQUEST, customer };
+  }
+  function success(customer) {
+    return { type: customerConstants.REGISTER_SUCCESS, customer };
+  }
+  function failure(error) {
+    return { type: customerConstants.REGISTER_FAILURE, error };
+  }
+}
+
+function checkToken(token) {
+  return dispatch => {
+    dispatch(request());
+
+    customerService.checkToken(token).then(
+      data => {
+        dispatch(validToken(data));
+      },
+      error => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+
+  function request(customer) {
+    return { type: customerConstants.REGISTER_REQUEST, customer };
+  }
+  function validToken(data) {
+    return { type: customerConstants.REGISTER_VALID_TOKEN, data };
+  }
+  function failure(error) {
+    return { type: customerConstants.REGISTER_INVALID_TOKEN, error };
   }
 }
 

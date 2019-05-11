@@ -7,9 +7,9 @@ class Customer extends Component {
 
   render() {
     const userData = this.props.items || [];
-    const user = userData.find( user => user._id.toString() === this.props.match.params.id) || {};
+    const user = userData.find( user => user.userPrincipalName === this.props.match.params.id) || {};
 
-    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"/> Not found</span>)]]
+    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"/> Not found</span>)]];
 
     return (
       <div className="animated fadeIn">

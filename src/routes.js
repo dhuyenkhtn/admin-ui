@@ -111,7 +111,7 @@ const routes = [
 
   { path: '/configurations', exact: true, name: 'Configurations', component: Configurations },
   { path: '/configurations/create', exact: true, name: 'Add config', component: AddConfiguration },
-  { path: '/configurations/:id', exact: true, name: 'Edit config', component: EditConfiguration }
+  { path: '/configurations/:id', exact: true, name: 'Edit config', component: EditConfiguration },
 ];
 
 export default routes;

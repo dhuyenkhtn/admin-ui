@@ -27,7 +27,7 @@ function UserRow(props) {
   return (
     <tr key={user._id.toString()}>
       <td>
-        <Link to={`/customers/detail/${user._id}`}>{user.username}</Link>
+        <Link to={`/customers/detail/${user.userPrincipalName}`}>{user.username}</Link>
       </td>
       {/*<td>{user.domain}</td>*/}
       <td>{user.userPrincipalName}</td>
