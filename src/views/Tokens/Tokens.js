@@ -113,20 +113,21 @@ function Item({ item, isAdmin, onLock, onDelete, onCopy }) {
           {item.status !== 'used' && (
             <Fragment>
               <Button
+                size="sm"
+                type="button"
+                color="primary"
+                onClick={() => onCopy(item.token)}
+              >
+                <i className="fa fa-files-o" />
+                {` Copy`}
+              </Button>
+              {`   `}
+              <Button
                 disabled={item.status === 'locked'}
                 size="sm"
                 type="button"
                 color="danger"
                 onClick={() => onLock(item._id)}
-              >
-                <i className="fa fa-lock" />
-                {` Lock`}
-              </Button>
-              <Button
-                size="sm"
-                type="button"
-                color="primary"
-                onClick={() => onCopy(item.token)}
               >
                 <i className="fa fa-lock" />
                 {` Lock`}
