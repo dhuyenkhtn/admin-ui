@@ -35,6 +35,11 @@ class Register extends Component {
     };
   }
 
+  componentDidMount() {
+    const body = document.getElementsByTagName('body')[0];
+    body.style.background = "url(https://source.unsplash.com/random/1900x1200)";
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.message !== this.props.message) {
       this.setState({ submitted: false });
